@@ -1,24 +1,39 @@
-package com.mani.llm.springboot.services;
-
 public class ArrayMergeService {
 
+    /**
+     * Merges two sorted arrays into a single sorted array.
+     * 
+     * @param array1 the first sorted array
+     * @param array2 the second sorted array
+     * @return the sorted array merged from array1 and array2
+     */
     public static int[] mergeSortedArrays(int[] array1, int[] array2) {
-        int[] mergedArray = new int[0];
-        for (int value : array1) {
-            mergedArray = appendElement(mergedArray, value);
-        }
-        for (int value : array2) {
-            mergedArray = appendElement(mergedArray, value);
-        }
-        return mergedArray;
-    }
+        int[] mergedArray = new int[array1.length + array2.length];
+        int i = 0, j = 0, k = 0;
 
-    private static int[] appendElement(int[] array, int element) {
-        int[] newArray = new int[array.length + 1];
-        for(int i = 0; i < array.length; i++) {
-            newArray[i] = array[i];
+        while (i < array1.length && j < array2.length) {
+            if (array1[i] < array2[j]) {
+                mergedArray[k] = array1[i];
+                i++;
+            } else {
+                mergedArray[k] = array2[j];
+                j++;
+            }
+            k++;
         }
-        newArray[array.length] = element;
-        return newArray;
+
+        while (i < array1.length) {
+            mergedArray[k] = array1[i];
+            i++;
+            k++;
+        }
+
+        while (j < array2.length) {
+            mergedArray[k] = array2[j];
+            j++;
+            k++;
+        }
+
+        return mergedArray;
     }
 }
