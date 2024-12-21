@@ -1,24 +1,34 @@
-package com.mani.llm.springboot.services;
-
 public class ArrayMergeService {
 
+    /**
+     * Merges two sorted arrays into a single sorted array.
+     * 
+     * @param array1 the first sorted array
+     * @param array2 the second sorted array
+     * @return the merged sorted array
+     */
     public static int[] mergeSortedArrays(int[] array1, int[] array2) {
-        int[] mergedArray = new int[0];
-        for (int value : array1) {
-            mergedArray = appendElement(mergedArray, value);
+        int[] mergedArray = new int[array1.length + array2.length];
+        int index = 0;
+        int i = 0, j = 0;
+
+        while (i < array1.length && j < array2.length) {
+            if (array1[i] < array2[j]) {
+                mergedArray[index++] = array1[i++];
+            } else {
+                mergedArray[index++] = array2[j++];
+            }
         }
-        for (int value : array2) {
-            mergedArray = appendElement(mergedArray, value);
+
+        while (i < array1.length) {
+            mergedArray[index++] = array1[i++];
         }
+
+        while (j < array2.length) {
+            mergedArray[index++] = array2[j++];
+        }
+
         return mergedArray;
     }
 
-    private static int[] appendElement(int[] array, int element) {
-        int[] newArray = new int[array.length + 1];
-        for(int i = 0; i < array.length; i++) {
-            newArray[i] = array[i];
-        }
-        newArray[array.length] = element;
-        return newArray;
-    }
 }
